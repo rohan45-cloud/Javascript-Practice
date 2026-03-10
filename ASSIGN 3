@@ -1,0 +1,35 @@
+function greet(name = "Guest") {
+  return "Hello " + name;
+}
+
+console.log(greet(undefined));
+console.log(greet(null));
+console.log(greet(""));
+
+
+Explanation:
+
+greet(undefined)
+
+When a parameter is undefined, JavaScript uses the default parameter.
+
+So name = "Guest" is used.
+Output: Hello Guest
+
+greet(null)
+
+null is a value, not undefined.
+
+Therefore the default parameter is not used.
+
+"Hello " + null becomes "Hello null".
+Output: Hello null
+
+greet("")
+
+"" is an empty string, but still a valid value.
+
+The default value is not used.
+
+"Hello " + "" results in "Hello " (Hello with a space).
+Output: **Hello **
