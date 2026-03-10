@@ -1,0 +1,104 @@
+Mini App 1 — Dark Mode Toggle : 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dark Mode Toggle</title>
+</head>
+<body style="text-align:center; padding:50px; transition: background 0.5s, color 0.5s;">
+
+  <h1>Dark Mode Example</h1>
+  <button id="toggleBtn" style="padding:10px 20px; cursor:pointer;">Toggle Dark Mode</button>
+
+  <script>
+    // Check localStorage for mode
+    if(localStorage.getItem('darkMode') === 'true'){
+      document.body.style.background = 'black';
+      document.body.style.color = 'white';
+    }
+
+    document.getElementById('toggleBtn').addEventListener('click', function() {
+      if(document.body.style.background === 'black'){
+        document.body.style.background = 'white';
+        document.body.style.color = 'black';
+        localStorage.setItem('darkMode', 'false');
+      } else {
+        document.body.style.background = 'black';
+        document.body.style.color = 'white';
+        localStorage.setItem('darkMode', 'true');
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+Mini App 2 — Sticky Notes  :
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sticky Notes</title>
+</head>
+<body style="padding:20px; font-family:sans-serif;">
+  <h1>Sticky Notes</h1>
+  <textarea id="noteInput" style="width:300px; height:100px;"></textarea>
+  <br>
+  <button id="addNoteBtn" style="margin-top:10px;">Add Note</button>
+  <div id="notesContainer" style="margin-top:20px;"></div>
+
+  <script>
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+    function displayNotes() {
+      const container = document.getElementById('notesContainer');
+      container.innerHTML = '';
+      notes.forEach((note, index) => {
+        const noteDiv = document.createElement('div');
+        noteDiv.style.border = '1px solid black';
+        noteDiv.style.padding = '10px';
+        noteDiv.style.marginBottom = '10px';
+        noteDiv.style.position = 'relative';
+        noteDiv.innerHTML = `
+          <p>${note}</p>
+          <button onclick="deleteNote(${index})" style="position:absolute; top:5px; right:5px;">Delete</button>
+        `;
+        container.appendChild(noteDiv);
+      });
+    }
+
+    function deleteNote(index) {
+      notes.splice(index, 1);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      displayNotes();
+    }
+
+    document.getElementById('addNoteBtn').addEventListener('click', function() {
+      const input = document.getElementById('noteInput');
+      if(input.value.trim() !== ''){
+        notes.push(input.value);
+        localStorage.setItem('notes', JSON.stringify(notes));
+        input.value = '';
+        displayNotes();
+      }
+    });
+
+    // Initial display
+    displayNotes();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
