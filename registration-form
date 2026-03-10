@@ -1,1 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration Form</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<h2>Registration Form</h2>
+
+<form id="form">
+  
+<label>Name:</label>
+<input type="text" id="name">
+<span id="nameError"></span>
+
+<br>
+
+<label>Email:</label>
+<input type="email" id="email">
+<span id="emailError"></span>
+
+<br>
+
+<label>Phone:</label>
+<input type="text" id="phone">
+<span id="phoneError"></span>
+
+<br>
+
+<label>Password:</label>
+<input type="password" id="password">
+<button type="button" id="toggle">Show</button>
+
+<div id="strength"></div>
+
+<br>
+
+<button type="submit">Register</button>
+
+</form>
+
+<script src="script.js"></script>
+</body>
+</html>M
+
+
+
+
+
+
+JAVA SCRIPT :
+
+
+
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("phone");
+const passwordInput = document.getElementById("password");
+
+const nameError = document.getElementById("nameError");
+const emailError = document.getElementById("emailError");
+const phoneError = document.getElementById("phoneError");
+const strength = document.getElementById("strength");
+
+
+// Name validation
+nameInput.addEventListener("input", () => {
+let regex = /^[A-Za-z ]+$/;
+
+if(!regex.test(nameInput.value)){
+nameError.textContent = "Only letters allowed";
+}else{
+nameError.textContent = "";
+}
+});
+
+
+// Email validation
+emailInput.addEventListener("input", () => {
+let regex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(!regex.test(emailInput.value)){
+emailError.textContent = "Invalid email";
+}else{
+emailError.textContent = "";
+}
+});
+
+
+// Phone validation
+phoneInput.addEventListener("input", () => {
+let regex = /^[0-9]{10}$/;
+
+if(!regex.test(phoneInput.value)){
+phoneError.textContent = "Enter 10 digit number";
+}else{
+phoneError.textContent = "";
+}
+});
+
+
+// Password strength
+passwordInput.addEventListener("input", () => {
+
+let val = passwordInput.value;
+
+if(val.length < 6){
+strength.textContent = "Weak";
+}
+else if(val.length < 10){
+strength.textContent = "Medium";
+}
+else{
+strength.textContent = "Strong";
+}
+
+});
+
+
+// Show/Hide password
+document.getElementById("toggle").onclick = () => {
+
+if(passwordInput.type === "password"){
+passwordInput.type = "text";
+}else{
+passwordInput.type = "password";
+}
+
+};
+
+
+// Form submit
+document.getElementById("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let data = {
+name: nameInput.value,
+email: emailInput.value,
+phone: phoneInput.value
+};
+
+let submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+
+submissions.push(data);
+
+localStorage.setItem("submissions", JSON.stringify(submissions));
+
+alert("Form Submitted");
+
+this.reset();
+
+});
+
+
+
+
+APPROACH :
+
+
+Create the Form UI
+
+Build a form with fields: Name, Email, Phone, Password.
+
+Add error message spans below each input.
+
+Add a Show/Hide Password button and a Password Strength indicator.
+
+2️⃣ Real-Time Validation (Inline)
+Use JavaScript input event on each field:
+
+Name: allow only letters using regex.
+
+Email: check valid email format.
+
+Phone: allow only 10 digits.
+
+Display error messages instantly while typing.
+
+3️⃣ Password Strength Meter
+
+Check password length and characters.
+
+Example rule:
+
+<6 characters → Weak
+
+6–9 characters → Medium
+
+10+ characters → Strong
+
+Show result dynamically below the password field.
+
+4️⃣ Show/Hide Password Toggle
+
+Add a button or icon.
+
+Change input type:
+
+password → text
+text → password
+
+5️⃣ Handle Form Submission
+
+Prevent page reload using event.preventDefault().
+
+Collect form values into an object:
+
+{
+ name,
+ email,
+ phone,
+ password
+}
