@@ -1,0 +1,21 @@
+console.log(calculateTotal(500, 30)); 
+// Output: 530
+
+
+Approach
+
+(Logic) – calculateTotal(price, deliveryFee)
+
+Create a function named calculateTotal.
+
+The function should take two parameters:
+
+price
+
+deliveryFee (set this as a default parameter, e.g., 50).
+
+If the user does not provide a delivery fee, the function will automatically use the default value.
+
+Inside the function, add price and deliveryFee.
+
+Return the total cost.
