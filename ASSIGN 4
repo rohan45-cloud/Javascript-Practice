@@ -1,0 +1,38 @@
+console.log(0 || "Hello");
+console.log("" || "World");
+console.log("JS" && 100);
+console.log(null && "Test");
+
+
+
+Explanation
+
+0 || "Hello"
+
+|| (OR) returns the first truthy value.
+
+0 is falsy, so JavaScript moves to "Hello".
+Output: Hello
+
+"" || "World"
+
+"" (empty string) is falsy.
+
+So "World" is returned.
+Output: World
+
+"JS" && 100
+
+&& (AND) returns the second value if the first is truthy.
+
+"JS" is truthy, so it returns 100.
+
+Output: 100
+
+null && "Test"
+
+&& returns the first falsy value it finds.
+
+null is falsy, so it stops and returns null.
+
+Output: null
