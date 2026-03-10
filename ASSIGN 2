@@ -7,7 +7,7 @@ Example
 console.log(greetUser("Rohan"));         
 // Output: Hello Rohan
 
-console.log(greetUser("Ritik", "Good Morning")); 
+console.log(greetUser("Rohan", "Good Morning")); 
 // Output: Good Morning Rohan
 
 
