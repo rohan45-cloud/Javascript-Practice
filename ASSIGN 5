@@ -1,0 +1,33 @@
+console.log(0 || 10);
+console.log(0 ?? 10);
+
+console.log(null || 20);
+console.log(null ?? 20);
+
+
+xplanation
+1. 0 || 10
+
+|| (OR) returns the first truthy value.
+
+0 is falsy, so JavaScript returns 10.
+Output: 10
+
+2. 0 ?? 10
+
+?? (Nullish Coalescing) returns the right value only if the left value is null or undefined.
+
+0 is not null or undefined, so it stays 0.
+Output: 0
+
+3. null || 20
+
+|| treats null as falsy, so it returns 20.
+Output: 20
+
+4. null ?? 20
+
+?? checks specifically for null or undefined.
+
+Since the value is null, it returns 20.
+Output: 20
