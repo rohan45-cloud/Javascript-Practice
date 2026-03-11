@@ -1,0 +1,162 @@
+index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather Cards</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Weather Dashboard</h2>
+
+<div id="loading">Loading weather...</div>
+<div id="error"></div>
+
+<div id="weather-container"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+Style.css
+
+body{
+font-family: Arial;
+text-align:center;
+background:#f2f2f2;
+}
+
+#weather-container{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+width:200px;
+}
+
+.temp{
+font-size:28px;
+font-weight:bold;
+}
+
+.emoji{
+font-size:40px;
+}
+
+
+
+
+Script.js
+
+const cities = [
+{ name: "Delhi", lat: 28.61, lon: 77.20 },
+{ name: "London", lat: 51.50, lon: -0.12 },
+{ name: "New York", lat: 40.71, lon: -74.00 }
+];
+
+const container = document.getElementById("weather-container");
+const loading = document.getElementById("loading");
+const errorDiv = document.getElementById("error");
+
+function weatherEmoji(code){
+if(code === 0) return "☀️";
+if(code <= 3) return "⛅";
+if(code <= 48) return "☁️";
+if(code <= 67) return "🌧️";
+return "🌦️";
+}
+
+const requests = cities.map(city =>
+fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true`)
+.then(res => res.json())
+);
+
+Promise.all(requests)
+
+.then(data => {
+
+loading.style.display = "none";
+
+data.forEach((weather, index) => {
+
+const city = cities[index];
+const temp = weather.current_weather.temperature;
+const code = weather.current_weather.weathercode;
+
+const card = document.createElement("div");
+card.className = "card";
+
+card.innerHTML = `
+<h3>${city.name}</h3>
+<div class="emoji">${weatherEmoji(code)}</div>
+<div class="temp">${temp}°C</div>
+`;
+
+container.appendChild(card);
+
+});
+
+})
+
+.catch(err => {
+loading.style.display="none";
+errorDiv.innerText="Failed to load weather data.";
+console.error(err);
+});
+
+
+Approach :
+
+1. Define Cities
+
+Create an array of 3 cities with latitude and longitude whose weather you want to fetch.
+
+2. Create API Requests
+
+Use the Open-Meteo API and build fetch requests for each city to get current weather data.
+
+3. Fetch Data Simultaneously
+
+Use Promise.all() to send all API requests at the same time and wait until all responses are received.
+
+4. Show Loading State
+
+Display a loading spinner/message while the data is being fetched.
+
+5. Process the Response
+
+When all promises resolve:
+
+Extract temperature
+
+Extract weather code/condition
+
+Convert weather code to a weather emoji
+
+6. Display Weather Cards
+
+Create styled cards using HTML/CSS and show:
+
+City name
+
+Temperature
+
+Weather condition emoji
+
+7. Handle Errors
+
+Use .catch() to display an error message if any API request fails.
+
+8. Push to GitHub
+
+Initialize a Git repository, commit the files, and push the project to GitHub.
